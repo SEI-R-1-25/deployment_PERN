@@ -1,4 +1,4 @@
-# Mern App Cloud Deployment
+# Pern App Cloud Deployment
 
 ### Objectives
 
