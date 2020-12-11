@@ -104,7 +104,7 @@ In your `server.js`:
 Finally in your `package.json`, add a new script in your `scripts` section:
 
 ```json
-    "build": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all  && cd client && rm -rf build && npm install && npm run build""
+    "build": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all  && cd client && rm -rf build && npm install && npm run build""
 ```
 
 ## Pointing Client To Our Api
