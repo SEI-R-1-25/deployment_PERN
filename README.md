@@ -2,7 +2,7 @@
 
 ### Objectives
 
-- Deploy server and to heroku
+- Deploy server to heroku
 - Deploy react app to Heroku
 
 ## Disclaimer
