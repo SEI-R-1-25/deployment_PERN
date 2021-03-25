@@ -139,3 +139,11 @@ You can monitor progress in heroku's activity tab!
 Once the build is finished you can open your app by using the `Open App` button or `heroku open` in your terminal.
 
 You can also publish a build by adding and committing your changes and running `git push heroku main`
+
+## Monitoring Your Server
+
+You can run `heroku logs --tail` to monitor what's happening with your server.
+
+## Seeding Files
+
+If you have seeds that you want to run, you can ssh into your heroku server with `heroku run bash` and then running `npx sequelize-cli db:seed:all`.
