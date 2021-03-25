@@ -5,7 +5,7 @@
 - Deploy server to heroku
 - Deploy react app to Heroku
 
-## Disclaimer
+## **Disclaimer**
 
 This repo is set up assuming that your apps are stuctured the same way we've done them in class.
 
@@ -45,27 +45,23 @@ const config = require(__dirname + '/../config/config.js')[env]
 
 ## Creating A Heroku Project
 
-Head over to your heroku account and create a new app.
+In your project directory, run:
 
-Give your app a name.
+```sh
+heroku create
+```
 
-![](images/heroku-app)
+Once your app is created, we need to add postgres as an addon:
 
-Once your app is created select `settings`.
+```sh
+heroku addons:create heroku-postgresql:hobby-dev
+```
 
-Select `Reveal Config Vars`.
+Next we'll add any `environment variables` for your project:
 
-You'll add your environment variables in these fields.
-
-Ex:
-
-- Key:
-  `SALT_ROUNDS`
-
-- Value:
-  `12`
-
-Under the `Resources` tab, find the `Add-Ons` section and look for `Heroku Postgres` in the search bar. Add the `hobby dev` to your app.
+```sh
+heroku config:set VARIABLE_NAME=<variable>
+```
 
 ### Wiring Up Our Code
 
@@ -86,10 +82,6 @@ In your `server.js`:
   > ```
   >
   > **Note: If you are using `helmet` you **must** make this modification:**
-  >
-  > ```js
-  > app.use(helmet({ contentSecurityPolicy: false }))
-  > ```
 
 - > Telling Express to serve our react app:
   >
@@ -101,15 +93,24 @@ In your `server.js`:
   > )
   > ```
 
-Finally in your `package.json`, add a new script in your `scripts` section:
+Finally in your `package.json` for your **SERVER**, add a new script in your `scripts` section:
 
 ```json
-    "build": "npx sequelize-cli db:migrate && cd client && rm -rf build && npm install && npm run build"
+    "build": "npm install && npx sequelize-cli db:migrate && cd client && rm -rf build && npm install && npm run build"
+```
+
+Make sure you have a `start` and `dev` script:
+
+```json
+{
+  "dev": "nodemon <entry>.js",
+  "start": "node <entry>.js"
+}
 ```
 
 ## Pointing Client To Our Api
 
-In `client/src/services/apiclient.js`, modify your `baseURL`:
+In `client/src/globals/index.js`, modify your base url`:
 
 ```js
 process.env.NODE_ENV === 'production'
@@ -135,4 +136,6 @@ Now in your project folder, `add`, `commit` and `push` your changes and a build 
 
 You can monitor progress in heroku's activity tab!
 
-Once the build is finished you can open your app by using the `Open App` button.
+Once the build is finished you can open your app by using the `Open App` button or `heroku open` in your terminal.
+
+You can also publish a build by adding and committing your changes and running `git push heroku main`
