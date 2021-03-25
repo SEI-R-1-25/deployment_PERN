@@ -75,22 +75,15 @@ In your `server.js`:
   > const path = require('path')
   > ```
 
-- > Add the following along side your middleware:
+- > Add the following **BELOW** your current middleware,and routes, **but before the listen method**:
   >
   > ```js
-  > app.use(express.static(path.join(__dirname, 'client', 'build')))
-  > ```
-  >
-  > **Note: If you are using `helmet` you **must** make this modification:**
-
-- > Telling Express to serve our react app:
-  >
-  > **NOTE**: **This should be added after your middleware**
-  >
-  > ```js
-  > app.get('*', (req, res) =>
-  >   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-  > )
+  > if (process.env.NODE_ENV === 'production') {
+  >   app.use(express.static(path.join(__dirname, 'client/build')))
+  >   app.get('*', (req, res) => {
+  >     res.sendFile(path.join(`${__dirname}/client/build/index.html`))
+  >   })
+  > }
   > ```
 
 Finally in your `package.json` for your **SERVER**, add a new script in your `scripts` section:
